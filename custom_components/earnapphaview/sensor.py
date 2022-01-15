@@ -1,5 +1,5 @@
 """ import app """
-from earnapp import earnapp
+import earnapp
 
 """ import ha """
 from homeassistant.components.sensor import SensorEntity
