@@ -1,9 +1,10 @@
 {  
     "domain": "earnapphaview",
     "name": "EarnApp Home Assistant View",
-    "documentation": "https://github.com/MaAamie/EarnAppHA",
+    "documentation": "https://github.com/MaAamie/EarnAppHAview",
     "requirements": [],
     "version": "0.0.1",
     "dependencies": [],
-    "codeowners": ["@MaAamie"]
+    "codeowners": ["@MaAamie"],
+    "iot_class": "cloud_polling"
 }
