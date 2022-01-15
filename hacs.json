@@ -1,0 +1,6 @@
+{
+    "name": "EarnApp HA View",
+    "domains": "sensor",
+    "country": "FR",
+    "iot_class": "Cloud Polling"
+  }
