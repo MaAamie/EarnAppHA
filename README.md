@@ -1,8 +1,17 @@
 # EarnAppHAview
 
->!Hello everybody,
+Hello everybody,
 
 This integration allows the visualization of your Dashboard data in "Home Assistant".
+
+![Alt Text](https://c.tenor.com/WCE5JUszKGMAAAAC/tenor.gif)
+
+Please note, this is not functional.
+
+The code is under construction
+
+
+
 
 Platform | Description
 -- | --
