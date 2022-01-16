@@ -13,7 +13,7 @@ Platform | Description
 This component requires :
 - Home Assistant
 - HACS
-- [EarnApp Account](https://earnapp.com/i/g8ng5x5)
+- [EarnApp Account](https://bit.ly/3A1NxCJ)
 - Oauth Token Refresh
 
 ## Installation
@@ -33,3 +33,15 @@ In the HA UI go to "Community" --> "Integrations" and search for "EarnAppHAview"
 7. Click on "google_oauth.js?xxxxxxxx" line.
 8. Goto "Cookies" TAB
 9. Copy Value of "oauth-refresh-token" line
+
+## Configuration
+
+Conifugration.yaml or Sensor.yaml :
+
+```yaml
+
+- platform: earnapphaview
+  token: !secret EarnappToken
+  scan_interval: 3600
+
+```
