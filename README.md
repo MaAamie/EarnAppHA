@@ -36,7 +36,7 @@ In the HA UI go to "Community" --> "Integrations" and search for "EarnAppHAview"
 
 ## Configuration
 
-Conifugration.yaml or Sensor.yaml :
+Confiugration.yaml or Sensor.yaml :
 
 ```yaml
 
@@ -45,3 +45,11 @@ Conifugration.yaml or Sensor.yaml :
   scan_interval: 3600
 
 ```
+
+## If you want
+
+if you like what i do, maybe a coffee/tea ? 🥺👉👈
+
+<a href="https://bit.ly/33I0xRy" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-red.png" alt="Buy Me A Coffee" width="150" ></a>
+
+[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TXFHGM3K6DSAQ)
