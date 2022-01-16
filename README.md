@@ -1,6 +1,6 @@
 # EarnAppHAview
 
-!>Hello everybody,
+>!Hello everybody,
 
 This integration allows the visualization of your Dashboard data in "Home Assistant".
 
