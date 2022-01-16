@@ -5,6 +5,7 @@ Hello everybody,
 This integration allows the visualization of your Dashboard data in "Home Assistant".
 
 Platform | Description
+-- | --
 `sensor` | Show various information about the dashboard.
 
 ## Requirements
