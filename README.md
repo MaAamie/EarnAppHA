@@ -1,1 +1,34 @@
-EarnAppHA
+# EarnAppHAview
+
+Hello everybody,
+
+This integration allows the visualization of your Dashboard data in "Home Assistant".
+
+Platform | Description
+`sensor` | Show various information about the dashboard.
+
+## Requirements
+
+This component requires :
+- Home Assistant
+- HACS
+- [EarnApp Account](https://earnapp.com/i/g8ng5x5)
+- Oauth Token Refresh
+
+## Installation
+
+### HACS
+
+In the HA UI go to "Community" --> "Integrations" and search for "EarnAppHAview" (if not found, add "Custom reposiories" in 3 small dots menu, past the github repositorie url and choose "Integration" category)
+
+### Oauth Token Refresh
+
+1. Go to your EarnApp [Dashboard](https://earnapp.com/dashboard/)
+2. Login with Google Account
+3. Open Developer tools with "CTR+SHIFT+I"
+4. Goto "Network" TAB
+5. Refresh Brownser Page ( F5 )
+6. After the page refreshes, enter "google_oauth" in the Filter field
+7. Click on "google_oauth.js?xxxxxxxx" line.
+8. Goto "Cookies" TAB
+9. Copy Value of "oauth-refresh-token" line

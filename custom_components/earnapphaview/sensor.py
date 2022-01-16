@@ -1,9 +1,9 @@
 """ import app """
-import earnapp
+from earnapp import earnapp
 
 """ import ha """
-from homeassistant.components.sensor import SensorEntity
-from homeassistant.components.sensor import PLATFORM_SCHEMA
+#from homeassistant.components.sensor import SensorEntity
+#from homeassistant.components.sensor import PLATFORM_SCHEMA
 
 DOMAIN = 'earnapphaview'
 
