@@ -2,14 +2,63 @@
 from earnapp import earnapp
 
 """ import ha """
+import homeassistant.helpers.config_validation as cv
 #from homeassistant.components.sensor import SensorEntity
 #from homeassistant.components.sensor import PLATFORM_SCHEMA
+from homeassistant.components.sensor import (
+    SensorDeviceClass,
+    SensorEntity,
+    SensorStateClass,
+)
 
 DOMAIN = 'earnapphaview'
 
+""" SCHEMA """
+
+CONF_TOKEN = "token"
+CONF_SCAN_INTERVAL = "scan_interval"
+
+REQ_LOCK = threading.Lock()
+CONFIG_SCHEMA = vol.Schema(
+	{
+		DOMAIN: Schema({
+			vol.Required(CONF_TOKEN): cv.string,
+			vol.Optional(CONF_SCAN_INTERVAL, default=3600): cv.positive_int,
+		})
+	},
+	extra=vol.ALLOW_EXTRA,
+)
+
+
+""" True Configuration """
+
+def setup(hass, config):
+	conf = config[DOMAIN]
+	comport = conf.get(CONF_TOKEN)
+	comspeed = conf.get(CONF_SCAN_INTERVAL)
+
+	rf = rcswitch.RCSwitch(comport, speed=comspeed)
+	rf.libWaitForAck(True, timeout=1)
+
+	def cleanup(event):
+		rf.cleanup()
+
+	def prepare(event):
+		rf.prepare()
+		rf.startReceivingThread()
+		hass.bus.listen_once(EVENT_HOMEASSISTANT_STOP, cleanup)
+
+	hass.bus.listen_once(EVENT_HOMEASSISTANT_START, prepare)
+	hass.data[DOMAIN] = rf
+
+	return True
+
+
+
+
+
 
 user = earnapp.User()
-print(user)
 
 loggedIn = user.login("")
 
