@@ -50,8 +50,8 @@ Confiugration.yaml or Sensor.yaml :
 ```yaml
 
 - platform: earnapphaview
-  token: !secret EarnappToken
-  scan_interval: 3600
+    token: !secret EarnappToken
+    scan_interval: 3600
 
 ```
 
