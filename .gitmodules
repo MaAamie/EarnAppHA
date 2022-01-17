@@ -1,0 +1,3 @@
+[submodule "earnapp.py"]
+	path = earnapp.py
+	url = https://github.com/Woodie-07/EarnApp.py/blob/main/earnapp/earnapp.py
