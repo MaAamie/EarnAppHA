@@ -36,6 +36,9 @@ if CONF_TOKEN == True:
 if loggedIn == True:
     print("Successfully logged in!")
 
+class EarnAppObject:
+	
+
 	DonneesMoney = user.money()
 	DonneesUserData = user.userData()
 	#DonneesDevices = user.devices()
@@ -71,7 +74,7 @@ if loggedIn == True:
 	print("---------- ShowDevice ----------")
 	#for cle, valeur in DonneesShowDevice.items():
 	#    print(cle + " Valeur : " + str(valeur))
-	
+
 else:
     print("Failed to log in")
 
