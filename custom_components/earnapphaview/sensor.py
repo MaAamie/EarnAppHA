@@ -1,82 +1,80 @@
-""" import app """
-from earnapp import earnapp
-import logging
-from datetime import datetime, timedelta
-import voluptuous as vol
+""" import earnapp """
 
-import homeassistant.helpers.config_validation as cv
-from homeassistant.components.sensor import PLATFORM_SCHEMA
-from homeassistant.const import (
-	CONF_TOKEN,
-)
+from earnapp import earnapp
+
+CONF_TOKEN = ""
+
+""" impot HA """
+#import homeassistant.helpers.config_validation as cv
+#from homeassistant.components.sensor import PLATFORM_SCHEMA
+#from homeassistant.const import (
+#	CONF_TOKEN,
+#)
+
+""" const """
 
 from .const import (
     DOMAIN,
     __name__,
 )
 
+""" Schema """
 
-SCAN_INTERVAL = timedelta(seconds=3600)
-
-PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
-    {
-        vol.Required(CONF_TOKEN): cv.string,
-    }
-)
-
-
-""" True Configuration """
+#PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
+#    {
+#        vol.Required(CONF_TOKEN): cv.string,
+#    }
+#)
 
 
-user = earnapp.User()
-
-if CONF_TOKEN == True:
-	loggedIn = user.login(CONF_TOKEN)
-
-if loggedIn == True:
-    print("Successfully logged in!")
+""" Objet """
 
 class EarnAppObject:
+
+    def __init__(self, CONF_TOKEN):
+		self.euser = earnapp.User()
+		self.DataOK = self.euser.login(self.CONF_TOKEN)
+
+	def makeinfo(self):
+		if(self.DataOK):
+			self.Money = self.DataOK.money()
+			self.UserData = self.DataOK.userData()
+			#self.Devices = self.DataOK.devices()
+			self.AppVersions = self.DataOK.appVersions()
+			self.PaymentMethods = self.DataOK.paymentMethods()
+			self.Transactions = self.DataOK.transactions()
+			#self.ShowDevice = self.DataOK.showDevice()
+			print("Successfully logged in!")
+		else:
+			print("Failed to log in")
 	
+	def prints(self):
+		print("---------- Money ----------")
+		for cle, valeur in self.Money.items():
+    		print(cle + " Valeur : " + str(valeur))
 
-	DonneesMoney = user.money()
-	DonneesUserData = user.userData()
-	#DonneesDevices = user.devices()
-	DonneesAppVersions = user.appVersions()
-	DonneesPaymentMethods = user.paymentMethods()
-	DonneesTransactions = user.transactions()
-	#DonneesShowDevice = user.showDevice()
+		print("---------- UserData ----------")
+		for cle, valeur in self.UserData.items():
+    		print(cle + " Valeur : " + str(valeur))
 
-	print("---------- Money ----------")
-	for cle, valeur in DonneesMoney.items():
-    	print(cle + " Valeur : " + str(valeur))
+		print("---------- Devices ----------")
+		#for cle, valeur in self.Devices.items():
+		#    print(cle + " Valeur : " + str(valeur))
 
-	print("---------- UserData ----------")
-	for cle, valeur in DonneesUserData.items():
-    	print(cle + " Valeur : " + str(valeur))
+		print("---------- AppVersions ----------")
+		for cle, valeur in self.AppVersions.items():
+    		print(cle + " Valeur : " + str(valeur))
 
-	print("---------- Devices ----------")
-	#for cle, valeur in DonneesDevices.items():
-	#    print(cle + " Valeur : " + str(valeur))
-
-	print("---------- AppVersions ----------")
-	for cle, valeur in DonneesAppVersions.items():
-    	print(cle + " Valeur : " + str(valeur))
-
-	print("---------- PaymentMethods ----------")
-	for cle, valeur in DonneesPaymentMethods.items():
-    	print(cle + " Valeur : " + str(valeur))
+		print("---------- PaymentMethods ----------")
+		for cle, valeur in self.PaymentMethods.items():
+    		print(cle + " Valeur : " + str(valeur))
 	
-	#print("---------- Transactions ----------")
-	#for cle, valeur in DonneesTransactions.items():
-	#    print(cle + " Valeur : " + str(valeur))
+		#print("---------- Transactions ----------")
+		#for cle, valeur in self.Transactions.items():
+		#    print(cle + " Valeur : " + str(valeur))
 
-	print("---------- ShowDevice ----------")
-	#for cle, valeur in DonneesShowDevice.items():
-	#    print(cle + " Valeur : " + str(valeur))
+		print("---------- ShowDevice ----------")
+		#for cle, valeur in self.ShowDevice.items():
+		#    print(cle + " Valeur : " + str(valeur))
 
-else:
-    print("Failed to log in")
-
-
-
+EarnAppObject.
