@@ -81,6 +81,26 @@ class EarnAppObject:
         #for cle, valeur in self.ShowDevice.items():
         #    print(cle + " Valeur : " + str(valeur))
 
+    def moneyinfo(self):
+        return self.Money.get('balance')
+
+    def moneytotalinfo(self):
+        return self.Money.get('earnings_total')
+
+    def userdatalocale(self):
+        return self.UserData.get('locale')
+
+    def userdataname(self):
+        return self.UserData.get('name')
+
+    def userdatareferralcode(self):
+        return self.UserData.get('referral_code')
+
+    def userdataemail(self):
+        return self.UserData.get('email')
+
+
+
 
 
 
@@ -90,4 +110,14 @@ earnobj.updatetoken(toke)
 
 earnobj.makeinfo()
 
-earnobj.prints()
+print(earnobj.moneyinfo())
+
+print(earnobj.moneytotalinfo())
+
+print(earnobj.userdatalocale())
+
+print(earnobj.userdataname())
+
+print(earnobj.userdataemail())
+
+print(earnobj.userdatareferralcode())
