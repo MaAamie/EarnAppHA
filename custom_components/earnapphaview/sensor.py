@@ -1,43 +1,57 @@
-""" import earnapp """
-
+""" import """
 import earnapp
 
-toke = ''
+import voluptuous as vol
+import logging
 
 """ import HA """
-#import homeassistant.helpers.config_validation as cv
-#from homeassistant.components.sensor import PLATFORM_SCHEMA
-#from homeassistant.const import (
-#	CONF_TOKEN,
-#)
+import homeassistant.helpers.config_validation as cv
+from homeassistant.components.sensor import PLATFORM_SCHEMA
+from homeassistant.helpers.entity import Entity
+from homeassistant.util import Throttle
+from homeassistant.const import (
+    CONF_NAME,
+    CONF_SCAN_INTERVAL,
+    CONF_TOKEN,
+    ATTR_ATTRIBUTION,
+    ICON,
+)
 
 """ const """
 
 from const import (
     DOMAIN,
     __name__,
+    __version__,
+    UP_INTERVAL,
 )
 
 """ Schema """
 
-#PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
-#    {
-#        vol.Required(CONF_TOKEN): cv.string,
-#    }
-#)
+PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
+    {
+        vol.Required(CONF_TOKEN): cv.string,
+    }
+)
 
 
 """ Objet """
 
 class EarnAppObject:
-    def __init__(self):
-        self.euser = earnapp.User()
+    def __init__(self, token, upinterval):
+        self.updatetoken(token)
+        self.upinterval = upinterval
 
-    def updatetoken(self, token):
-        self.dataok = self.euser.login(token)
+    def update(self):
+        self.dataok = self.euser.login(self.token)
         print(self.dataok)
+    
+    def updatetoken(self, token):
+        self.token = token
 
     def makeinfo(self):
+        self.euser = earnapp.User()
+        self.update()
         if(self.dataok):
             self.Money = self.euser.money()
             self.UserData = self.euser.userData()
@@ -101,23 +115,65 @@ class EarnAppObject:
 
 
 
+''' setup plaform'''
+def setup_platform(hass, config, add_entities):
+
+    name = config.get(CONF_NAME)
+    update_interval = config.get(CONF_SCAN_INTERVAL, UP_INTERVAL)
+
+    try:
+        token = config.get(CONF_TOKEN)
+        session = []
+    except :
+        _LOGGER.exception("miss token")
+        return False
+    earnobj = EarnAppObject(token, UP_INTERVAL)
+    earnobj.makeinfo()
+    add_entities([EanAppSensor(session, name, UP_INTERVAL, earnobj )], True)
 
 
 
-earnobj = EarnAppObject()
 
-earnobj.updatetoken(toke)
 
-earnobj.makeinfo()
+''' Entity '''
+class EanAppSensor(Entity):
+    def __init__(self, session, name, upinterval, earnobj):
+        """Initialize the sensor."""
+        self.session = session
+        self.name = name
+        self.earnobj = earnobj
+        self.attributes = None
+        self.state = None
+        self.update = Throttle(upinterval)(self._update)
+        self._sAM.init( self._myEarn )
 
-print(earnobj.moneyinfo())
+    @property
+    def name(self):
+        """Return sensor name """
+        return "SensorEarnApp"
 
-print(earnobj.moneytotalinfo())
+    @property
+    def state(self):
+        """Return sensor state """
+        return self._state
 
-print(earnobj.userdatalocale())
+    @property
+    def unit_of_measurement(self):
+        """Return money unit of measurement """
+        return "$"
 
-print(earnobj.userdataname())
+    def _update(self):
+        """Update device state."""
+        self.earnobj.makeinfo()
+        self._state, self._attributes = self._sAM.getstatus()
 
-print(earnobj.userdataemail())
+    @property
+    def device_state_attributes(self):
+        """Return the state attributes."""
+        return self.attributes
 
-print(earnobj.userdatareferralcode())
+    @property
+    def icon(self):
+        """Icon to use in the frontend."""
+        return ICON
+
