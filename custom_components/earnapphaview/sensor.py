@@ -116,6 +116,7 @@ class EarnAppObject:
 
 
 ''' setup plaform'''
+
 def setup_platform(hass, config, add_entities):
 
     name = config.get(CONF_NAME)
@@ -136,6 +137,7 @@ def setup_platform(hass, config, add_entities):
 
 
 ''' Entity '''
+
 class EanAppSensor(Entity):
     def __init__(self, session, name, upinterval, earnobj):
         """Initialize the sensor."""
@@ -176,4 +178,3 @@ class EanAppSensor(Entity):
     def icon(self):
         """Icon to use in the frontend."""
         return ICON
-
