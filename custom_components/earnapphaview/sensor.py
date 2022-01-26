@@ -17,8 +17,8 @@ from homeassistant.const import (
     ICON,
 )
 
-""" const """
 
+""" const """
 from const import (
     DOMAIN,
     __name__,
@@ -26,13 +26,15 @@ from const import (
     UP_INTERVAL,
 )
 
-""" Schema """
 
+""" Schema """
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
     {
         vol.Required(CONF_TOKEN): cv.string,
     }
 )
+
+_LOGGER = logging.getLogger(__name__)
 
 
 """ Objet """
@@ -130,7 +132,7 @@ def setup_platform(hass, config, add_entities):
         return False
     earnobj = EarnAppObject(token, UP_INTERVAL)
     earnobj.makeinfo()
-    add_entities([EanAppSensor(session, name, UP_INTERVAL, earnobj )], True)
+    add_entities([EarnAppSensor(session, name, UP_INTERVAL, earnobj )], True)
 
 
 
@@ -138,7 +140,7 @@ def setup_platform(hass, config, add_entities):
 
 ''' Entity '''
 
-class EanAppSensor(Entity):
+class EarnAppSensor(Entity):
     def __init__(self, session, name, upinterval, earnobj):
         """Initialize the sensor."""
         self.session = session
@@ -147,7 +149,6 @@ class EanAppSensor(Entity):
         self.attributes = None
         self.state = None
         self.update = Throttle(upinterval)(self._update)
-        self._sAM.init( self._myEarn )
 
     @property
     def name(self):
