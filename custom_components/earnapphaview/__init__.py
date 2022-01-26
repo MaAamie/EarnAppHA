@@ -15,7 +15,6 @@ DOMAIN = "EarnAppHAview"
 
 """ const """
 from .const import (
-    DOMAIN,
     __name__,
     __version__,
     CONF_UP_INTERVAL,
@@ -26,9 +25,13 @@ import logging
 _LOGGER = logging.getLogger(__name__)
 
 """ Schema """
-CONFIG_SCHEMA = vol.Schema(
+EARNAPP_SCHEMA = vol.Schema(
     {
         vol.Required(CONF_TOKEN): cv.string,
     }
 )
 
+
+CONFIG_SCHEMA = vol.Schema(
+    {vol.Optional(DOMAIN): EARNAPP_SCHEMA}, extra=vol.ALLOW_EXTRA
+)
