@@ -38,11 +38,10 @@ _LOGGER = logging.getLogger(__name__)
 
 
 """ Objet """
-
 class EarnAppObject:
     def __init__(self, token, upinterval):
         self.updatetoken(token)
-        self.upinterval = upinterval
+        self.upinterval = config.get(UP_INTERVAL)
 
     def update(self):
         self.dataok = self.euser.login(self.token)
@@ -118,11 +117,10 @@ class EarnAppObject:
 
 
 ''' setup plaform'''
-
 def setup_platform(hass, config, add_entities):
 
     name = config.get(CONF_NAME)
-    update_interval = config.get(CONF_SCAN_INTERVAL, UP_INTERVAL)
+    update_interval = config.get(UP_INTERVAL)
 
     try:
         token = config.get(CONF_TOKEN)
@@ -130,16 +128,15 @@ def setup_platform(hass, config, add_entities):
     except :
         _LOGGER.exception("miss token")
         return False
-    earnobj = EarnAppObject(token, UP_INTERVAL)
+    earnobj = EarnAppObject(token, update_interval)
     earnobj.makeinfo()
-    add_entities([EarnAppSensor(session, name, UP_INTERVAL, earnobj )], True)
+    add_entities([EarnAppSensor(session, name, update_interval, earnobj )], True)
 
 
 
 
 
 ''' Entity '''
-
 class EarnAppSensor(Entity):
     def __init__(self, session, name, upinterval, earnobj):
         """Initialize the sensor."""
@@ -168,12 +165,6 @@ class EarnAppSensor(Entity):
     def _update(self):
         """Update device state."""
         self.earnobj.makeinfo()
-        self._state, self._attributes = self._sAM.getstatus()
-
-    @property
-    def device_state_attributes(self):
-        """Return the state attributes."""
-        return self.attributes
 
     @property
     def icon(self):
