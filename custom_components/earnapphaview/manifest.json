@@ -1,8 +1,10 @@
 {  
-    "domain": "earnapphaview",
+    "domain": "EarnAppHAview",
     "name": "EarnApp Home Assistant View",
     "documentation": "https://github.com/MaAamie/EarnAppHAview",
-    "requirements": [],
+    "requirements": [
+        "earnapp==0.0.5"
+    ],
     "version": "0.0.1",
     "dependencies": [],
     "codeowners": ["@MaAamie"],

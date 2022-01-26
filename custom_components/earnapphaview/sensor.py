@@ -1,42 +1,3 @@
-""" import """
-import earnapp
-
-import voluptuous as vol
-import logging
-
-""" import HA """
-import homeassistant.helpers.config_validation as cv
-from homeassistant.components.sensor import PLATFORM_SCHEMA
-from homeassistant.helpers.entity import Entity
-from homeassistant.util import Throttle
-from homeassistant.const import (
-    CONF_NAME,
-    CONF_SCAN_INTERVAL,
-    CONF_TOKEN,
-    ATTR_ATTRIBUTION,
-    ICON,
-)
-
-
-""" const """
-from const import (
-    DOMAIN,
-    __name__,
-    __version__,
-    UP_INTERVAL,
-)
-
-
-""" Schema """
-PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
-    {
-        vol.Required(CONF_TOKEN): cv.string,
-    }
-)
-
-_LOGGER = logging.getLogger(__name__)
-
-
 """ Objet """
 class EarnAppObject:
     def __init__(self, token, upinterval):
@@ -116,8 +77,8 @@ class EarnAppObject:
 
 
 
-''' setup plaform'''
-def setup_platform(hass, config, add_entities):
+''' setup '''
+def setup(hass, config, add_entities):
 
     name = config.get(CONF_NAME)
     update_interval = UP_INTERVAL
