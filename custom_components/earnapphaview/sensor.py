@@ -41,7 +41,7 @@ _LOGGER = logging.getLogger(__name__)
 class EarnAppObject:
     def __init__(self, token, upinterval):
         self.updatetoken(token)
-        self.upinterval = config.get(UP_INTERVAL)
+        self.upinterval = UP_INTERVAL
 
     def update(self):
         self.dataok = self.euser.login(self.token)
@@ -120,7 +120,7 @@ class EarnAppObject:
 def setup_platform(hass, config, add_entities):
 
     name = config.get(CONF_NAME)
-    update_interval = config.get(UP_INTERVAL)
+    update_interval = UP_INTERVAL
 
     try:
         token = config.get(CONF_TOKEN)
