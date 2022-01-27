@@ -27,7 +27,7 @@ _LOGGER = logging.getLogger(__name__)
 """ Schema """
 EARNAPP_SCHEMA = vol.Schema(
     {
-        vol.Required(CONF_TOKEN): cv.string,
+        vol.Required(token): cv.string,
     }
 )
 
